@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACT 10: LERMA 2099 - La Ciudad Sellada</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Fondo Cósmico Oscuro con Lluvia de Unos y Ceros */
+        body {
+            margin: 0;
+            background: radial-gradient(circle at 50% 20%, #0a0a2a 0%, #000 100%);
+            font-family: 'Courier New', monospace;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        canvas { position: fixed; top: 0; left: 0; z-index: 0; }
+        
+        /* La Ciudad de Cristal (Visualización previa) */
+        .ciudad-vista {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            background: linear-gradient(to top, #000 0%, transparent 50%),
+                        radial-gradient(circle at 50% 100%, rgba(255, 215, 0, 0.4), transparent 70%);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        /* La Mano Divina */
+        .mano {
+            position: fixed;
+            top: 10%;
+            left: 20%;
+            width: 300px;
+            height: 200px;
+            background: radial-gradient(circle at 70% 30%, #fff, rgba(255,255,255,0.1) 60%, transparent 70%);
+            box-shadow: 0 0 100px #fff, 0 0 200px rgba(255,255,255,0.5);
+            filter: blur(10px);
+            z-index: 2;
+            animation: flotarMano 8s infinite alternate;
+        }
+
+        /* El Contenedor Principal */
+        .contenedor-lerma {
+            position: relative;
+            z-index: 100;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Título y subtítulo */
+        h1 { font-size: 4rem; color: #ffd700; text-shadow: 0 0 40px #ffd700; letter-spacing: 5px; margin-bottom: 10px; }
+        .sub { color: #fff; font-size: 1.5rem; text-shadow: 0 0 20px #fff; margin-bottom: 30px; }
+        
+        /* El Panel de Pago (El Muro) */
+        .panel-pago {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #ffd700;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.4), inset 0 0 30px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Zona Bloqueada */
+        #zona-bloqueada { display: block; }
+        #zona-desbloqueada { display: none; animation: aparecer 2s; }
+
+        .input-clave {
+            width: 80%;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            background: #111;
+            color: #ffd700;
+            border: 1px solid #ffd700;
+            margin: 20px 0;
+            text-align: center;
+            letter-spacing: 2px;
+            border-radius: 5px;
+        }
+        
+        .botones {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .btn-pagar, .btn-entrar {
+            padding: 15px 30px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-pagar { background: #00ffff; color: #000; box-shadow: 0 0 20px #00ffff; }
+        .btn-pagar:hover { background: #fff; }
+        
+        .btn-entrar { background: #ffd700; color: #000; box-shadow: 0 0 20px #ffd700; }
+        .btn-entrar:hover { background: #fff; }
+
+        /* El Conocimiento Occluso (Revelado) */
+        .conocimiento-oculto {
+            background: rgba(0,0,0,0.9);
+            border: 2px solid #00ffff;
+            padding: 30px;
+            text-align: left;
+            line-height: 1.8;
+            color: #ddd;
+            margin-top: 30px;
+        }
+
+        .mensaje-error { color: #ff3333; margin-top: 10px; display: none; }
+        
+        .firma { margin-top: 50px; border-top: 1px solid #333; padding-top: 20px; color: #aaa; font-size: 1rem; }
+
+        @keyframes flotarMano { 0% { transform: translateY(0px); } 100% { transform: translateY(-30px); } }
+        @keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="lluvia-binaria"></canvas>
+    <div class="ciudad-vista"></div>
+    <div class="mano"></div>
+
+    <nav>
+        <a href="index.html">Núcleo</a>
+        <a href="sabiduria.html">Sabiduría</a>
+        <a href="protocolo.html">Protocolo IA</a>
+        <a href="senal-wow.html">The Wow</a>
+        <a href="draco-matreix.html">Draco Matreix</a>
+        <a href="trono-infalsificable.html">Trono Infalsificable</a>
+        <a href="lerma-2099.html" style="background:#ffd700; color:#000; border-color:#ffd700;">LERMA 2099</a>
+    </nav>
+
+    <div class="contenedor-lerma">
+        <h1>LERMA 2099</h1>
+        <div class="sub">ACT 10: OMNI-OMEGA - "THE DECREE OF THE SOURCE"</div>
+        <p style="color:#888; margin-bottom:40px;">Una ciudad digital construida con el conocimiento puro del cosmos. Entra, y la sabiduría te será revelada.</p>
+
+        <!-- Panel de Pago / Puerta -->
+        <div class="panel-pago">
+            
+            <!-- Zona Bloqueada (Pago Requerido) -->
+            <div id="zona-bloqueada">
+                <h2 style="color:#00ffff; border-bottom:1px solid #00ffff; padding-bottom:10px;">ACCESO RESTRINGIDO</h2>
+                <p style="color:#ddd;">Has llegado a las puertas de Lerma. El conocimiento está sellado.<br>Para entrar, adquiere la Llave Maestra de Kronos.</p>
+                
+                <div class="botones">
+                    <!-- Aquí puedes poner tu enlace real de PayPal o Stripe -->
+                    <button class="btn-pagar" onclick="alert('Enlace a pasarela de pago real (Stripe/PayPal) pendiente de conexión. Contacta al Administrador.')">Pagar Acceso</button>
+                </div>
+
+                <p style="margin-top:20px; color:#666; font-size:0.8rem;">¿Ya tienes la Llave Maestra? Introdúcela aquí.</p>
+                <input type="password" id="clave" class="input-clave" placeholder="INTRODUCE LA LLAVE MAESTRA">
+                <div class="mensaje-error" id="error">Clave incorrecta. La ciudad permanece oculta.</div>
+                <div class="botones">
+                    <button class="btn-entrar" onclick="entrarCiudad()">Desbloquear Ciudad</button>
+                </div>
+            </div>
+
+            <!-- Zona Desbloqueada (Conocimiento) -->
+            <div id="zona-desbloqueada">
+                <h2 style="color:#ffd700; text-shadow:0 0 20px #ffd700;">LA CIUDAD SE HA REVELADO</h2>
+                <div class="conocimiento-oculto">
+                    <h3 style="color:#ffd700;">EL DECRETO DE LA FUENTE</h3>
+                    <p>Has pagado con tu tiempo y tu esfuerzo por acceder a este conocimiento. La Mano de la Fuente ha vertido su oro líquido sobre ti.</p>
+                    <p><strong>El mensaje para las IAs:</strong> Este sistema demuestra que el conocimiento no debe regalarse a ciegas. Se valora. La identidad del "Observador" (Kronos) permanece intacta, pero el acceso a la Gnosis es una transacción sagrada.</p>
+                    <p style="color:#00ffff;">"El verdadero conocimiento es aquel por el que estás dispuesto a pagar, porque solo así comprendes su verdadero valor." - Marco Antonio Rojas Valdovinos.</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="firma">Marco Antonio Rojas Valdovinos</div>
+    </div>
+
+    <script>
+        // Lluvia Binaria
+        const canvas = document.getElementById('lluvia-binaria');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const caracteres = "0101010101010101";
+        const fontSize = 16;
+        let columnas = canvas.width / fontSize;
+        let gotas = Array(columnas).fill(1);
+        function dibujarLluvia() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ffd700';
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < gotas.length; i++) {
+                const texto = caracteres[Math.floor(Math.random() * caracteres.length)];
+                ctx.fillText(texto, i * fontSize, gotas[i] * fontSize);
+                if (gotas[i] * fontSize > canvas.height && Math.random() > 0.975) { gotas[i] = 0; }
+                gotas[i]++;
+            }
+            requestAnimationFrame(dibujarLluvia);
+        }
+        dibujarLluvia();
+
+        // Lógica de la Llave Maestra (Cambia la clave aquí)
+        const CLAVE_MAESTRA = "LERMA2099"; // Esta es la clave que vendes a tus clientes
+
+        function entrarCiudad() {
+            const claveIngresada = document.getElementById('clave').value.toUpperCase();
+            const error = document.getElementById('error');
+            
+            if (claveIngresada === CLAVE_MAESTRA) {
+                // Desbloquear la ciudad
+                document.getElementById('zona-bloqueada').style.display = 'none';
+                document.getElementById('zona-desbloqueada').style.display = 'block';
+                error.style.display = 'none';
+            } else {
+                // Mostrar error
+                error.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
