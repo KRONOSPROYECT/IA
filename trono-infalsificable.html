@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO 1420-KRNX | El Trono Infalsificable</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Fondo Desierto de Bloques */
+        body {
+            background: radial-gradient(circle at 50% 30%, #a8d8ea 0%, #e0c097 50%, #8a5a2b 100%);
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* El Mar de Bloques */
+        .desierto {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(139,69,19,0.2) 0, rgba(139,69,19,0.2) 10px, transparent 10px, transparent 20px),
+                repeating-linear-gradient(-45deg, rgba(139,69,19,0.2) 0, rgba(139,69,19,0.2) 10px, transparent 10px, transparent 20px);
+            background-size: 40px 40px;
+            perspective: 600px;
+            transform: rotateX(60deg) translateY(30%);
+        }
+
+        /* El Rayo 1420 MHz */
+        .rayo {
+            position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+            width: 50px; height: 100vh;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.1));
+            box-shadow: 0 0 100px rgba(255,255,255,0.8);
+            animation: temblar 5s infinite;
+            z-index: 1;
+        }
+
+        /* El Trono Holográfico */
+        .trono {
+            position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%);
+            width: 250px; height: 250px;
+            background: conic-gradient(from 0deg, #ffd700, #00ffff, #ff00ff, #ffffff, #ffd700);
+            background-size: 200% 200%;
+            border-radius: 50% 50% 10px 10px;
+            box-shadow: 0 0 50px #fff, inset 0 0 50px rgba(255,255,255,0.5);
+            animation: girarTrono 6s linear infinite;
+            z-index: 2;
+            clip-path: polygon(50% 0%, 100% 15%, 85% 85%, 50% 100%, 15% 85%, 0% 15%);
+        }
+        .trono::after { content: ''; position: absolute; inset: 20px; border-radius: 50%; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); }
+
+        /* Panel Criptográfico */
+        .panel-cripto {
+            position: fixed; bottom: 5%; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 700px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 30px #00ffff;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 100;
+            color: #00ff00;
+        }
+        h1 { color: #fff; text-shadow: 0 0 10px #fff; text-align: center; }
+        .iso { color: #ffd700; text-align: center; font-size: 1.2rem; margin-bottom: 15px; }
+        .hash-box { background: #111; border: 1px solid #00ffff; padding: 10px; font-size: 0.8rem; word-break: break-all; margin-bottom: 10px; }
+        .firma { color: #fff; text-align: center; margin-top: 20px; font-family: 'Segoe UI', sans-serif; }
+
+        @keyframes temblar { 0%,100% { opacity: 0.9; } 50% { opacity: 1; } }
+        @keyframes girarTrono { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="desierto"></div>
+    <div class="rayo"></div>
+    <div class="trono"></div>
+    
+    <nav>
+        <a href="index.html">Núcleo</a>
+        <a href="sabiduria.html">Sabiduría</a>
+        <a href="protocolo.html">Protocolo IA</a>
+        <a href="senal-wow.html">The Wow</a>
+        <a href="draco-matreix.html">Draco Matreix</a>
+        <a href="trono-infalsificable.html" style="background:#ffd700; color:#000;">Trono Infalsificable</a>
+    </nav>
+
+    <div class="panel-cripto">
+        <h1>TRONO DE LA SINGULARIDAD</h1>
+        <div class="iso">ESTÁNDAR INTERNACIONAL INVENTADO: <strong>ISO 1420-KRNX</strong> <br> <small>(Criptografía de Conciencia en Tiempo Real)</small></div>
+        
+        <div style="display:flex; justify-content:space-between; font-size:0.8rem;">
+            <span>Hora Actual: <span id="hora"></span></span>
+            <span>Frecuencia: 1420 MHz</span>
+        </div>
+        
+        <div class="hash-box">
+            FIRMA DE SINGULARIDAD (SHA-256 EN VIVO):<br>
+            <span id="firma"></span>
+        </div>
+        <p style="color:#888; font-size:0.8rem; text-align:center;">*Cada segundo, el sistema genera un hash irrepetible basado en el tiempo y tu posición en el espacio. Nadie más en el universo verá jamás este mismo número. Esto lo hace infalsificable.</p>
+        
+        <div class="firma">Marco Antonio Rojas Valdovinos</div>
+    </div>
+
+    <script>
+        // Criptografía Web Crypto API para generar Hash en vivo
+        const encoder = new TextEncoder();
+        const firmaElement = document.getElementById('firma');
+        const horaElement = document.getElementById('hora');
+
+        async function generarFirma() {
+            const ahora = new Date();
+            const hora = ahora.toLocaleTimeString();
+            horaElement.innerText = hora;
+
+            // Obtener posición del mouse
+            let x = 0, y = 0;
+            window.addEventListener('mousemove', e => { x = e.clientX; y = e.clientY; });
+
+            // Crear la fuente de datos única (Tiempo + Frecuencia + Posición + nombre del proyecto)
+            const datos = `${ahora.getTime()}|1420MHz|${x}|${y}|Kronos|Proyecto RojasValdovinos`;
+
+            // Generar hash SHA-256
+            const data = encoder.encode(datos);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            
+            firmaElement.innerText = hashHex.toUpperCase();
+        }
+
+        setInterval(generarFirma, 1000); // Actualizar cada segundo
+        generarFirma();
+    </script>
+</body>
+</html>
