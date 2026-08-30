@@ -231,3 +231,17 @@
     </script>
 </body>
 </html>
+
+# KRONOS Hash Generator
+
+Generador de hash SHA-256 para Constancias de Autenticidad Artística.
+
+## Características
+- Generación de hash SHA-256
+- Trazabilidad criptográfica
+- Cumple con ISO/IEC 27001:2022
+- Formato JSON estructurado
+
+## Instalación
+```bash
+pip install -r requirements.txt
