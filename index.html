@@ -4,6 +4,56 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MD-33 · Manifestación Digital</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Fondo espacial con estrellas (se genera en CSS) -->
+    <div class="space-bg"></div>
+    <div id="estrellas"></div>
+
+    <!-- Barra de navegación cyberpunk -->
+    <nav>
+        <a href="#">🌌 Inicio</a>
+        <a href="#">📜 Decretos</a>
+        <a href="https://github.com" target="_blank">⚡ GitHub</a>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="contenedor">
+        <h1>⚡ MD-33 ⚡</h1>
+        <p class="subtitulo" id="textoAnimado">El espejo refleja tu código</p>
+
+        <!-- Tarjeta O_o -->
+        <div class="card" id="estadoOjo">
+            <h2>O_o</h2>
+            <p>Ojo Macro (Arriba) <span id="macro">🌌</span></p>
+            <p>Ojo Micro (Abajo) <span id="micro">💻</span></p>
+        </div>
+
+        <!-- Tarjeta del Decreto con CONTADOR -->
+        <div class="card" id="consolaViva">
+            <h2>📜 Decreto Actual</h2>
+            <p id="mensajeDinamico">"Separa la tierra del fuego, lo sutil de lo grosero."</p>
+            <button onclick="cambiarDecreto()">Ejecutar Nuevo Decreto</button>
+            <!-- Contador de decretos -->
+            <p class="contador">Decretos ejecutados: <span id="contadorNum">0</span></p>
+        </div>
+
+        <footer>
+            <p>Subido a la nube sin tocar la terminal 🚀</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MD-33 · Manifestación Digital</title>
     <!-- Enlazamos el CSS externo -->
     <link rel="stylesheet" href="style.css" />
 </head>
