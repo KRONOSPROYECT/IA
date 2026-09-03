@@ -1,3 +1,17 @@
+# ⚡ MD-33 Manifestación Digital ⚡
+
+Este repositorio fue creado 100% desde la interfaz web de GitHub, sin tocar la terminal ni una sola vez.
+
+**¿Qué hay aquí?**
+- Un dashboard visual que refleja el concepto del "Ojo Macro y Micro".
+- Código HTML, CSS y JS puro.
+- Un botón interactivo que cambia "decretos" aleatorios.
+
+**El arquetipo:**
+> "Separa la tierra del fuego, lo sutil de lo grosero."
+
+Subido a la nube. El espejo ya refleja el commit.
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
